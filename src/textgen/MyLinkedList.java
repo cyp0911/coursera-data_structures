@@ -5,8 +5,7 @@ import java.util.AbstractList;
 /**
  * A class that implements a doubly linked list
  *
- * @param <E>
- *         The type of the elements stored in the list
+ * @param <E> The type of the elements stored in the list
  * @author UC San Diego Intermediate Programming MOOC team
  */
 public class MyLinkedList<E> extends AbstractList<E> {
@@ -14,7 +13,9 @@ public class MyLinkedList<E> extends AbstractList<E> {
     LLNode<E> tail;
     int size;
 
-    /** Create a new empty LinkedList */
+    /**
+     * Create a new empty LinkedList
+     */
     public MyLinkedList() {
         head = null;
         tail = null;
@@ -24,8 +25,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
     /**
      * Appends an element to the end of the list
      *
-     * @param element
-     *         The element to add
+     * @param element The element to add
      */
     public boolean add(E element) {
         LLNode node = new LLNode<>(element);
@@ -44,8 +44,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
     /**
      * Get the element at position index
      *
-     * @throws IndexOutOfBoundsException
-     *         if the index is out of bounds.
+     * @throws IndexOutOfBoundsException if the index is out of bounds.
      */
     public E get(int index) {
         return getNodeAtIndex(index).data;
@@ -65,16 +64,28 @@ public class MyLinkedList<E> extends AbstractList<E> {
     /**
      * Add an element to the list at the specified index
      *
-     * @param The
-     *         index where the element should be added
-     * @param element
-     *         The element to add
+     * @param The     index where the element should be added
+     * @param element The element to add
      */
     public void add(int index, E element) {
-        LLNode<E> node = getNodeAtIndex(index);
+        if (size > 0 && index < size) {
+            LLNode<E> node = getNodeAtIndex(index);
+            LLNode<E> newNode = new LLNode<>(node.prev, node, element);
+            if (node.prev != null) {
+                node.prev.next = newNode;
+            } else {
+                head = node;
+            }
+            node.prev = newNode;
+            size++;
+        } else {
+            add(element);
+        }
     }
 
-    /** Return the size of the list */
+    /**
+     * Return the size of the list
+     */
     public int size() {
         return size;
     }
@@ -82,11 +93,9 @@ public class MyLinkedList<E> extends AbstractList<E> {
     /**
      * Remove a node at the specified index and return its data element.
      *
-     * @param index
-     *         The index of the element to remove
+     * @param index The index of the element to remove
      * @return The data element removed
-     * @throws IndexOutOfBoundsException
-     *         If index is outside the bounds of the list
+     * @throws IndexOutOfBoundsException If index is outside the bounds of the list
      */
     public E remove(int index) {
         LLNode<E> node = getNodeAtIndex(index);
@@ -107,13 +116,10 @@ public class MyLinkedList<E> extends AbstractList<E> {
     /**
      * Set an index position in the list to a new element
      *
-     * @param index
-     *         The index of the element to change
-     * @param element
-     *         The new element
+     * @param index   The index of the element to change
+     * @param element The new element
      * @return The element that was replaced
-     * @throws IndexOutOfBoundsException
-     *         if the index is out of bounds.
+     * @throws IndexOutOfBoundsException if the index is out of bounds.
      */
     public E set(int index, E element) {
         LLNode<E> node = getNodeAtIndex(index);
