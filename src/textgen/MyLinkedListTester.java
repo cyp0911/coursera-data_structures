@@ -46,7 +46,7 @@ public class MyLinkedListTester {
      * Test if the get method is working correctly.
      */
     /*You should not need to add much to this method.
-	 * We provide it as an example of a thorough test. */
+     * We provide it as an example of a thorough test. */
     @Test
     public void testGet() {
         //test empty list, get should throw an exception
@@ -121,12 +121,14 @@ public class MyLinkedListTester {
         assertEquals(123456, list1.get(list1.size - 1).intValue());
     }
 
-    /** Test the size of the list */
+    /**
+     * Test the size of the list
+     */
     @Test
     public void testSize() {
-        assertEquals(3,list1.size);
+        assertEquals(3, list1.size);
         list1.add(123456);
-        assertEquals(4,list1.size);
+        assertEquals(4, list1.size);
     }
 
     /**
@@ -144,7 +146,9 @@ public class MyLinkedListTester {
         assertEquals(expectOnPosition2, list1.get(3));
     }
 
-    /** Test setting an element in the list */
+    /**
+     * Test setting an element in the list
+     */
     @Test
     public void testSet() {
         assertEquals(3, list1.size);
@@ -153,6 +157,75 @@ public class MyLinkedListTester {
         assertEquals(3, list1.size);
     }
 
-    // TODO: Optionally add more test methods.
+    @Test
+    public void testSetTooLowIndex() {
+        try {
+            list1.set(-1, 1);
+            fail("Check out of bounds");
+        } catch (IndexOutOfBoundsException ioobe) {
+        }
+    }
 
+    @Test
+    public void testSetTooHighIndex() {
+        try {
+            list1.set(3, 1);
+            fail("Check out of bounds");
+        } catch (IndexOutOfBoundsException ioobe) {
+        }
+    }
+
+    @Test
+    public void testRemoveTooLowIndex() {
+        try {
+            list1.remove(-1);
+            fail("Check out of bounds");
+        } catch (IndexOutOfBoundsException ioobe) {
+        }
+    }
+
+    @Test
+    public void testRemoveTooHighIndex() {
+        try {
+            list1.remove(3);
+            fail("Check out of bounds");
+        } catch (IndexOutOfBoundsException ioobe) {
+        }
+    }
+
+    @Test
+    public void testAddTooLowIndex() {
+        try {
+            list1.add(-1, 123);
+            fail("Check out of bounds");
+        } catch (IndexOutOfBoundsException ioobe) {
+        }
+    }
+
+    @Test
+    public void testAddTooHighIndex() {
+        try {
+            list1.add(4, 123);
+            fail("Check out of bounds");
+        } catch (IndexOutOfBoundsException ioobe) {
+        }
+    }
+
+    @Test
+    public void testSetNullElement() {
+        try {
+            list1.set(1, null);
+            fail("Check nullcheck");
+        } catch (NullPointerException npe) {
+        }
+    }
+
+    @Test
+    public void testAddNullElement() {
+        try {
+            list1.add(null);
+            fail("Check nullcheck");
+        } catch (NullPointerException npe) {
+        }
+    }
 }
